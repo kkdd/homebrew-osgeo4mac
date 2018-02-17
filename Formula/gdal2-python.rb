@@ -89,8 +89,10 @@ class Gdal2Python < Formula
 
       Language::Python.each_python(build) do |python, _python_version|
         system python, *Language::Python.setup_install_args(prefix)
+        system "echo", "#{opt}/#{name}/lib/python#{_python_version}/site-packages",
+                ">", "#{lib}/python#{_python_version}/site-packages/#{name}.pth"
       end
-
+    
       # Scripts compatible with Python3? Appear to be...
       bin.install Dir["scripts/*"]
       # Clean up any stray doxygen files.
